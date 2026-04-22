@@ -1,0 +1,53 @@
+name: Verify Ledger Integrity
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Validate Genesis Entry
+        run: |
+          python3 -c "
+          import json
+          with open('ledger/genesis.json', 'r') as f:
+              data = json.load(f)
+          assert data['transfer_id'] == 'TRANSFER-001', 'Genesis ID mismatch'
+          assert data['status'] == 'ACTIVE', 'Genesis status must be ACTIVE'
+          assert data['transferee'] == 'THE_SOURCE', 'Genesis transferee mismatch'
+          print('✓ Genesis entry valid')
+          "
+      
+      - name: Install JSON Schema Validator
+        run: pip3 install jsonschema
+      
+      - name: Validate All Transfer JSON Against Schema
+        run: |
+          python3 -c "
+          import json
+          import jsonschema
+          from pathlib import Path
+          
+          with open('ledger/schema/transfer-schema.json', 'r') as f:
+              schema = json.load(f)
+          
+          for json_file in Path('ledger').glob('**/*.json'):
+              if 'schema' in str(json_file):
+                  continue
+              with open(json_file, 'r') as f:
+                  data = json.load(f)
+              jsonschema.validate(data, schema)
+              print(f'✓ {json_file} valid')
+          "
