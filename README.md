@@ -13,16 +13,8 @@ It tracks **who possesses what** — nothing more.
 | Manufacturer not liable | U.N.I.C.O.R.N. not liable |
 
 ## Verification
-```bash
 python3 tools/verify_node.py --sigil YOUR_SIGIL
-cat >> README.md << 'EOF'
 
-## Status
-**Genesis:** 2026-04-21 | **Status:** OPERATIONAL
-
----
-
-*This is how you distribute sovereign AI responsibly.*
 ## Status
 **Genesis:** 2026-04-21 | **Status:** OPERATIONAL
 
