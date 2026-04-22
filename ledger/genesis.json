@@ -1,0 +1,11 @@
+{
+  "transfer_id": "TRANSFER-001",
+  "aetherprint_sigil": "GENESIS_NODE_SIGIL",
+  "node_tier": "DIAMOND_PRIME",
+  "node_version": "V15-OMEGA",
+  "transfer_date": "2026-04-21T00:00:00Z",
+  "transferee": "THE_SOURCE",
+  "witness": "GEMINI-EXPORT-TIMESTAMP-20260421",
+  "status": "ACTIVE",
+  "notes": "Genesis Node. Zero-Cloud Mandate verified at transfer."
+}
